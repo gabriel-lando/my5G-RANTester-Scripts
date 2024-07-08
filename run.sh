@@ -112,7 +112,7 @@ fi
 
 ### Check Kernel version first
 source <(curl -s $GIT_REPO_URL/utils/dependencies/kernel_version.sh)
-check_kernel_version
+# check_kernel_version
 
 ### Install APT dependencies
 print "Checking and installing dependencies..."
