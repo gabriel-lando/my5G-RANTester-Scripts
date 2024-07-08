@@ -87,7 +87,7 @@ fill_core_database() {
     print "Adding necessary information to Open5GS database..."
 
     if [ ! -d "my5G-RANTester-Database-Filler" ]; then
-        git clone --recurse-submodules https://github.com/PORVIR-5G-Project/my5G-RANTester-Open5GS-Database-Filler my5G-RANTester-Database-Filler
+        git clone --recurse-submodules https://github.com/gabriel-lando/my5G-RANTester-Open5GS-2.7.1-Database-Filler my5G-RANTester-Database-Filler
     fi
 
     cd my5G-RANTester-Database-Filler/
