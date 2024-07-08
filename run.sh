@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ### Get current directory
+GIT_REPO_URL="https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main"
 WORK_DIR=$(pwd)
 
 ### Default value of CLI parameters
@@ -35,7 +36,8 @@ show_help(){
     echo "            1) free5GC v3.0.6"
     echo "            2) free5GC v3.2.1"
     echo "            3) Open5GS v2.3.6"
-    echo "            4) OpenAirInterface v1.4.0"
+    echo "            4) Open5GS v2.7.1"
+    echo "            5) OpenAirInterface v1.4.0"
     echo ""
     echo "  -e int  Select the experiment to run:"
     echo "            1) Connectivity test (Default)"
@@ -74,7 +76,7 @@ fi
 #####################################
 
 # Load print methods
-source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/print.sh)
+source <(curl -s $GIT_REPO_URL/utils/print.sh)
 
 #####################################
 ########## PRE EXEC CHECKS ##########
@@ -84,7 +86,7 @@ source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTes
 # ToDo: Change it
 if $RUN_CLEAR || $RUN_STOP_CLEAR; then
     print "Cleaning environment from previous executions before run..."
-    bash <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/stop_and_clear.sh)
+    bash <(curl -s $GIT_REPO_URL/stop_and_clear.sh)
 
     if $RUN_STOP_CLEAR; then
         exit 0;
@@ -93,20 +95,22 @@ fi
 
 ### Define what 5G core will be used
 if [ "$RUN_CORE_5G" = "1" ]; then
-    source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/5g_core/free5gc_v3.0.6.sh)
+    source <(curl -s $GIT_REPO_URL/utils/5g_core/free5gc_v3.0.6.sh)
 elif [ "$RUN_CORE_5G" = "2" ]; then
-    source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/5g_core/free5gc_v3.2.1.sh)
+    source <(curl -s $GIT_REPO_URL/utils/5g_core/free5gc_v3.2.1.sh)
 elif [ "$RUN_CORE_5G" = "3" ]; then
-    source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/5g_core/open5gs_v2.3.6.sh)
+    source <(curl -s $GIT_REPO_URL/utils/5g_core/open5gs_v2.3.6.sh)
 elif [ "$RUN_CORE_5G" = "4" ]; then
-    source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/5g_core/oai_v1.4.0.sh)
+    source <(curl -s $GIT_REPO_URL/utils/5g_core/open5gs_v2.7.1.sh)
+elif [ "$RUN_CORE_5G" = "5" ]; then
+    source <(curl -s $GIT_REPO_URL/utils/5g_core/oai_v1.4.0.sh)
 else
     print_err "ERROR: Please, select the 5G Core to use. Use '-h' for more info."
     exit 1
 fi
 
 ### Check Kernel version first
-source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/dependencies/kernel_version.sh)
+source <(curl -s $GIT_REPO_URL/utils/dependencies/kernel_version.sh)
 check_kernel_version
 
 ### Install APT dependencies
@@ -115,7 +119,7 @@ apt update
 apt -y install git ca-certificates curl gnupg pass gnupg2 lsb-release make build-essential
 
 ### Install Docker
-source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/dependencies/docker.sh)
+source <(curl -s $GIT_REPO_URL/utils/dependencies/docker.sh)
 install_docker
 
 ### Install Core specific dependencies
@@ -132,7 +136,7 @@ run_core
 fill_core_database $RUN_NUM_UEs
 
 ### Prepare metrics colector
-source <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/metrics_collector.sh)
+source <(curl -s $GIT_REPO_URL/utils/metrics_collector.sh)
 prepare_metrics_collector
 
 ### Create my5G-RANTester container
@@ -145,7 +149,7 @@ cd my5G-RANTester/
 git submodule update --init --remote
 
 # Create config for multiple gNB
-wget https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/utils/generate_compose_multi_gnb.sh -O generate_compose_multi_gnb.sh
+wget $GIT_REPO_URL/utils/generate_compose_multi_gnb.sh -O generate_compose_multi_gnb.sh
 chmod +x generate_compose_multi_gnb.sh
 ./generate_compose_multi_gnb.sh -g $RUN_NUM_GNBs -u $RUN_NUM_UEs
 
