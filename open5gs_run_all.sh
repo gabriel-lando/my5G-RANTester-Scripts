@@ -113,7 +113,7 @@ user_input(){
 ### Clear previous executions before run.
 if $CLEAR || $STOP_CLEAR; then
     print "Cleaning environment from previous executions before run..."
-    bash <(curl -s https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main/stop_and_clear.sh)
+    bash <(curl -s https://raw.githubusercontent.com/gabriel-lando/my5G-RANTester-Scripts/main/stop_and_clear.sh)
 
     if $STOP_CLEAR; then
         exit 0;

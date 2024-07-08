@@ -1,7 +1,8 @@
 #!/bin/bash
 
+GIT_REPO_URL="https://raw.githubusercontent.com/gabriel-lando/my5G-RANTester-Scripts/main"
+
 ### Get current directory
-GIT_REPO_URL="https://raw.githubusercontent.com/PORVIR-5G-Project/my5G-RANTester-Scripts/main"
 WORK_DIR=$(pwd)
 
 ### Default value of CLI parameters
