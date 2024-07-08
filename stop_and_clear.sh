@@ -51,7 +51,7 @@ fi
 OPEN5GS_CORE_DIR="docker_open5gs/"
 if [ -d "$OPEN5GS_CORE_DIR" ]; then
     cd $OPEN5GS_CORE_DIR
-    docker compose down --rmi all -v --remove-orphans
+    docker compose down -v --remove-orphans
 
     cd $WORK_DIR
 
