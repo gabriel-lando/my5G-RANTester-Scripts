@@ -101,7 +101,7 @@ fill_core_database() {
 
     cd my5G-RANTester-Database-Filler/
 
-    wget https://raw.githubusercontent.com/PORVIR-5G-Project/open5gs-my5G-RANTester-docker/main/config/tester.yaml -O ./data/config.yaml
+    wget https://raw.githubusercontent.com/gabriel-lando/open5gs-my5G-RANTester-docker/main/config/tester.yaml -O ./data/config.yaml
 
     # Generate .env file with the configs for docker compose
     echo NUM_DEVICES=$@ > .env
@@ -112,7 +112,7 @@ fill_core_database() {
 }
 
 download_core_tester() {
-   git clone https://github.com/PORVIR-5G-Project/open5gs-my5G-RANTester-docker my5G-RANTester
+   git clone https://github.com/gabriel-lando/open5gs-my5G-RANTester-docker my5G-RANTester
 }
 
 # Parse CLI parameters
