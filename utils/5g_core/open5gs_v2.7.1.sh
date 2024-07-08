@@ -2,7 +2,7 @@
 
 ### Constants
 CORE_WORK_DIR=$(pwd)
-CORE_DIR="docker_gradiant-open5gs/"
+CORE_DIR="docker_open5gs/"
 CORE_MULTI_GNB_DIR="my5G-RANTester-Multi-gNodeB/"
 
 ### Default value of CLI parameters
@@ -73,7 +73,7 @@ run_core() {
     print "Creating Open5GS containers, it can take a while..."
 
     if [ ! -d "$CORE_DIR" ]; then
-        git clone https://github.com/gabriel-lando/docker_gradiant-open5gs.git
+        git clone https://github.com/gabriel-lando/docker_gradiant-open5gs.git docker_open5gs
     fi
 
     cd $CORE_DIR
